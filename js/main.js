@@ -1,44 +1,70 @@
-const canvas = document.getElementById("myCanvas");
-let sceneWidth = window.innerWidth;
-let sceneHeight = window.innerHeight;
+//APP PIXIJS
 
-// const app = new PIXI.Application({
-//   view: canvas,
-//   width: sceneWidth,
-//   height: sceneHeight
-// });
-
-const renderer = new PIXI.Renderer({
-  view: canvas,
-  width: sceneWidth,
-  height: sceneHeight,
-  resolution: devicePixelRatio,
-  autoDensity: true
+//Create a Pixi Application
+let app = new PIXI.Application({
+  width: window.innerWidth,
+  height: window.innerHeight,
+  transparent: true
 });
+document.body.appendChild(app.view);
+app.renderer.autoDensity = true;
 
-window.addEventListener("resize", resize);
+let path = "sprites/";
+PIXI.Loader.shared
+  .add("BMX", path + "player/BMX.png")
+  .add("Skate", path + "player/Skate.png")
+  .on("progress", loadProgressHandler)
+  .load(setup);
 
-function resize() {
-  let sceneWidth = window.innerWidth;
-  let sceneHeight = window.innerHeight;
-  renderer.resize(sceneWidth, sceneHeight)
+//décalration variables
+let skate, bmx;
+
+//Chargement
+function loadProgressHandler(loader, resource) {
+  console.log(resource.name + " loading " + loader.progress + "%");
+}
+//Sprites Chargés
+function setup() {
+  console.log("loaded 100%");
+  bmx = new PIXI.Sprite(
+    PIXI.Loader.shared.resources.BMX.texture
+  );
+  skate = new PIXI.Sprite(
+    PIXI.Loader.shared.resources.Skate.texture
+  );
+  skate.position.set(300, app.view.height/1.5);
+  skate.anchor.set(.5, .5);
+  skate.scale.set(3,3);
+  app.stage.addChild(bmx, skate);
+
+  // update function
+  gameLoop();
 }
 
-const stage = new PIXI.Container();
-
-const texture = PIXI.Texture.from("sprites/sprite.png");
-const img = new PIXI.Sprite(texture);
-img.anchor.x = .5;
-img.anchor.y = .5;
-
-stage.addChild(img);
-const ticker = new PIXI.Ticker();
-ticker.add(animate);
-ticker.start();
-
-function animate() {
-  img.x = renderer.screen.width/2;
-  img.y = renderer.screen.height/2;
-  renderer.render(stage);
-  // img.rotation += 0.01;
+function gameLoop() {
+  requestAnimationFrame(gameLoop);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//

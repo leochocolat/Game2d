@@ -2,7 +2,9 @@ body {
   margin: 0;
 }
 
-#myCanvas {
+canvas {
   display: block;
-  background: blue;
+  position: absolute;
+  top: 0;
+  left: 0;
 }

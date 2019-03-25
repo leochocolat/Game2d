@@ -106,6 +106,10 @@ keyObject.press = () => {
     requestAnimationFrame(loadJump);
   }
   console.log("Sprite animation : Flexion");
+  let preJump = new TimelineMax();
+  preJump.add(
+    TweenMax.to(sprite, .2, {rotation: -.1, ease: Power1.easeOut})
+  );
 };
 keyObject.release = () => {
   console.log(power);
@@ -114,5 +118,7 @@ keyObject.release = () => {
     TweenMax.to(sprite, .4, {y: 200, ease: Power1.easeOut})
   ).add(
     TweenMax.to(sprite, .4, {y: app.view.height/1.5, ease: Power1.easeIn})
-  );
+  ).add(
+    TweenMax.to(sprite, .1, {rotation: 0, ease: Power1.easeIn})
+  )
 };

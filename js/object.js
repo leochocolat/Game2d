@@ -19,8 +19,8 @@ class Joueur {
   build() {
     PIXI.Loader.shared
       .add(this.name, path + this.file)
-      .on("progress", this.loadProgressHandler)
-      .load(this.setup);
+      .on("progress", this.loadProgressHandler.bind(this))
+      .load(this.setup.bind(this));
 
     console.log(this.name + "'s app is built");
   }
@@ -30,7 +30,18 @@ class Joueur {
   }
 
   setup() {
-    console.log(this.name + "'s app is set up");
+    console.log(this.name + "'s loaded 100%");
+    var name = this.name;
+    console.log(path + this.file);
+    sprite = new PIXI.Sprite(
+      PIXI.Loader.shared.resources.this.name.texture
+    );
+    sprite.position.set(300, app.view.height/1.5);
+    sprite.anchor.set(.5, .5);
+    sprite.scale.set(3,3);
+    app.stage.addChild(sprite);
+    // update function
+    // gameLoop();
   }
 
 

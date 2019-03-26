@@ -47,13 +47,13 @@ class Player {
   }
 }
 
-let player = new Player("BMX", "player/BMX.png");
-// let player = new Player("Skate", "player/Skate.png");
-console.log(player.name);
-player.build();
+// Initialisation
+let player1 = new Player("BMX", "player/BMX.png");
+let player = new Player("Skate", "player/Skate.png");
+// player.build();
+player1.build();
 
 //Jump on keypressed
-
 function keyboard(value) {
   let key = {};
   key.value = value;
@@ -95,9 +95,7 @@ function keyboard(value) {
   };
   return key;
 }
-
 let keyObject = keyboard(" ");
-
 keyObject.press = () => {
   power = 0;
   loadJump();

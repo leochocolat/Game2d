@@ -1,0 +1,44 @@
+{"frames": {
+
+"frame1.png":
+{
+	"frame": {"x":1,"y":1,"w":70,"h":90},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":90},
+	"sourceSize": {"w":70,"h":90}
+},
+"frame2.png":
+{
+	"frame": {"x":73,"y":1,"w":70,"h":90},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":90},
+	"sourceSize": {"w":70,"h":90}
+},
+"frame3.png":
+{
+	"frame": {"x":145,"y":1,"w":70,"h":90},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":90},
+	"sourceSize": {"w":70,"h":90}
+},
+"frame4.png":
+{
+	"frame": {"x":217,"y":1,"w":70,"h":90},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":90},
+	"sourceSize": {"w":70,"h":90}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "test-bmx.png",
+	"format": "RGBA8888",
+	"size": {"w":288,"h":92},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:ac9852a177c2e2747a06d202d4f7ab60:72b327b365aa3bcbf06697d3b54bf2ac:59c048258fde2df192fe9093546dce15$"
+}
+}

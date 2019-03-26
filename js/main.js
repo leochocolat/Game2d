@@ -11,14 +11,12 @@ app.renderer.autoDensity = true;
 
 let path = "sprites/";
 PIXI.Loader.shared
-  .add("BMX", path + "player/BMX.png")
-  .add("Skate", path + "player/Skate.png")
+  .add(path + "player/test-bmx.json")
   .on("progress", loadProgressHandler)
   .load(setup);
 
 //décalration variables
-let skate, bmx;
-
+let briquet;
 //Chargement
 function loadProgressHandler(loader, resource) {
   console.log(resource.name + " loading " + loader.progress + "%");
@@ -26,17 +24,23 @@ function loadProgressHandler(loader, resource) {
 //Sprites Chargés
 function setup() {
   console.log("loaded 100%");
-  bmx = new PIXI.Sprite(
-    PIXI.Loader.shared.resources["BMX"].texture
-  );
-  skate = new PIXI.Sprite(
-    PIXI.Loader.shared.resources.Skate.texture
-  );
-  skate.position.set(300, app.view.height/1.5);
-  skate.anchor.set(.5, .5);
-  skate.scale.set(3,3);
-  app.stage.addChild(bmx, skate);
 
+  var frames = [];
+  for (var i = 1; i < 5; i++) {
+      // magically works since the spritesheet was loaded with the pixi loader
+      frames.push(PIXI.Texture.from('frame' + i + '.png'));
+  }
+
+  console.log(frames);
+
+  anim = new PIXI.AnimatedSprite(frames);
+  anim.animationSpeed = .10;
+  anim.position.set(300, app.view.height/1.5);
+  anim.anchor.set(.5, .5);
+  anim.scale.set(3,3);
+  anim.play();
+
+  app.stage.addChild(anim);
   // update function
   gameLoop();
 }

@@ -1,0 +1,52 @@
+{"frames": {
+
+"pixcity_Immo1.png":
+{
+	"frame": {"x":1,"y":329,"w":167,"h":335},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":167,"h":335},
+	"sourceSize": {"w":167,"h":335}
+},
+"pixcity_Immo2.png":
+{
+	"frame": {"x":1,"y":1,"w":162,"h":313},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":162,"h":313},
+	"sourceSize": {"w":162,"h":313}
+},
+"pixcity_Immo3.png":
+{
+	"frame": {"x":1,"y":498,"w":189,"h":389},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":189,"h":389},
+	"sourceSize": {"w":189,"h":389}
+},
+"pixcity_Immo4.png":
+{
+	"frame": {"x":1,"y":165,"w":162,"h":390},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":162,"h":390},
+	"sourceSize": {"w":162,"h":390}
+},
+"pixcity_Immo5.png":
+{
+	"frame": {"x":1,"y":689,"w":257,"h":266},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":257,"h":266},
+	"sourceSize": {"w":257,"h":266}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "frontbuildings.png",
+	"format": "RGBA8888",
+	"size": {"w":392,"h":947},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:9dd4d8a46fd4309cce5c67ecf861ccdf:77acee656eaee267e4c8da2cb2f5c775:59d236b394ed686ef7b9f8ad2a1ab236$"
+}
+}

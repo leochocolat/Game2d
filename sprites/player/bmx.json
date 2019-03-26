@@ -35,10 +35,10 @@
 "meta": {
 	"app": "https://www.codeandweb.com/texturepacker",
 	"version": "1.0",
-	"image": "test-bmx.png",
+	"image": "bmx.png",
 	"format": "RGBA8888",
 	"size": {"w":288,"h":92},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:24dddf215cccabec08eb95651ac0a6ec:ce23bdc528e53dbe2734d6d852eebe4c:59c048258fde2df192fe9093546dce15$"
+	"smartupdate": "$TexturePacker:SmartUpdate:d41658dc05d1f03f2606390fc774c65f:ce23bdc528e53dbe2734d6d852eebe4c:81a686a7f99a932c8788a1b14247f6ad$"
 }
 }

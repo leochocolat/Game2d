@@ -1,5 +1,5 @@
 let path = "sprites/";
-let sprite;
+let sprite, backgroundBack, backgroundFront;
 let power = 0;
 //Create a Pixi Application
 let app = new PIXI.Application({
@@ -20,6 +20,10 @@ class Player {
   build() {
     PIXI.Loader.shared
       .add(path + this.file)
+      .add(path + "background/backbuildings.json")
+      .add(path + "background/frontbuildings.json")
+      .add(path + "background/test-back.png")
+      .add(path + "background/test-front.png")
       .on("progress", this.loadProgressHandler.bind(this))
       .load(this.setup.bind(this));
 
@@ -30,6 +34,7 @@ class Player {
     console.log(resource.name + " loading " + loader.progress + "%");
   }
   setup() {
+    //PLAYER
     console.log(this.name + "'s loaded 100%");
     var frames = [];
     for (var i = 0; i < 4; i++) {
@@ -37,22 +42,61 @@ class Player {
     }
     sprite = new PIXI.AnimatedSprite(frames);
     sprite.animationSpeed = .10;
-    sprite.position.set(300, app.view.height/1.5);
-    sprite.anchor.set(.5, .5);
+    sprite.position.set(300, app.view.height/1.2);
+    sprite.anchor.set(.5, 1);
     sprite.scale.set(3,3);
     sprite.play();
+
+  //BACKGROUNDS
+    // Back buildings
+    var backBgs = [];
+    for (var i = 1; i <= 13; i++) {
+      backBgs.push(PIXI.Texture.from("pixcity_Building" + i + '.png'));
+    }
+
+    backgroundBack = new PIXI.TilingSprite(
+      PIXI.Loader.shared.resources[path + "background/test-back.png"].texture,
+      app.view.width,
+      app.view.height
+    );
+    backgroundBack.position.set(0, app.view.height/1.2);
+    backgroundBack.tilePosition.set(0, app.view.height);
+    backgroundBack.anchor.set(0,1);
+    backgroundBack.scale.set(1.6,1.6);
+    app.stage.addChild(backgroundBack);
+
+    // Front buildings
+    var frontBgs = [];
+    for (var i = 1; i <= 5; i++) {
+      frontBgs.push(PIXI.Texture.from("pixcity_Immo" + i + '.png'));
+    }
+
+    backgroundFront = new PIXI.TilingSprite(
+      PIXI.Loader.shared.resources[path + "background/test-front.png"].texture,
+      app.view.width,
+      app.view.height
+    );
+    backgroundFront.position.set(0, app.view.height/1.2);
+    backgroundFront.tilePosition.set(0, app.view.height);
+    backgroundFront.anchor.set(0,1);
+    backgroundFront.scale.set(1.6,1.6);
+    app.stage.addChild(backgroundFront);
+
+
     app.stage.addChild(sprite);
     // update function
     this.gameLoop();
   }
 
   gameLoop() {
+    backgroundBack.tilePosition.x -= 3;
+    backgroundFront.tilePosition.x -= 5;
     requestAnimationFrame(this.gameLoop.bind(this));
   }
 }
 
 // Initialisation
-let player1 = new Player("BMX", "player/test-bmx.json");
+let player1 = new Player("BMX", "player/bmx.json");
 // let player = new Player("Skate", "player/Skate.png");
 // player.build();
 player1.build();
@@ -118,9 +162,9 @@ keyObject.release = () => {
   console.log(power);
   let jump = new TimelineMax();
   jump.add(
-    TweenMax.to(sprite, .4, {y: 200, ease: Power1.easeOut})
+    TweenMax.to(sprite, .4, {y: 400, ease: Power1.easeOut})
   ).add(
-    TweenMax.to(sprite, .4, {y: app.view.height/1.5, ease: Power1.easeIn})
+    TweenMax.to(sprite, .4, {y: app.view.height/1.2, ease: Power1.easeIn})
   ).add(
     TweenMax.to(sprite, .1, {rotation: 0, ease: Power1.easeIn})
   )

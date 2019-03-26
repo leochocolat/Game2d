@@ -19,7 +19,7 @@ class Player {
 
   build() {
     PIXI.Loader.shared
-      .add(this.name, path + this.file)
+      .add(path + this.file)
       .on("progress", this.loadProgressHandler.bind(this))
       .load(this.setup.bind(this));
 
@@ -31,12 +31,16 @@ class Player {
   }
   setup() {
     console.log(this.name + "'s loaded 100%");
-    sprite = new PIXI.Sprite(
-      PIXI.Loader.shared.resources[this.name].texture
-    );
+    var frames = [];
+    for (var i = 0; i < 4; i++) {
+        frames.push(PIXI.Texture.from(this.name + "_" + i + '.png'));
+    }
+    sprite = new PIXI.AnimatedSprite(frames);
+    sprite.animationSpeed = .10;
     sprite.position.set(300, app.view.height/1.5);
     sprite.anchor.set(.5, .5);
     sprite.scale.set(3,3);
+    sprite.play();
     app.stage.addChild(sprite);
     // update function
     this.gameLoop();
@@ -48,8 +52,8 @@ class Player {
 }
 
 // Initialisation
-let player1 = new Player("BMX", "player/BMX.png");
-let player = new Player("Skate", "player/Skate.png");
+let player1 = new Player("BMX", "player/test-bmx.json");
+// let player = new Player("Skate", "player/Skate.png");
 // player.build();
 player1.build();
 
@@ -97,6 +101,7 @@ function keyboard(value) {
 }
 let keyObject = keyboard(" ");
 keyObject.press = () => {
+  sprite.stop();
   power = 0;
   loadJump();
   function loadJump() {
@@ -119,4 +124,7 @@ keyObject.release = () => {
   ).add(
     TweenMax.to(sprite, .1, {rotation: 0, ease: Power1.easeIn})
   )
+  setTimeout(function() {
+    sprite.play();
+  }, 800);
 };

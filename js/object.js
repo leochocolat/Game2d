@@ -6,7 +6,7 @@ let app = new PIXI.Application({
   width: window.innerWidth,
   height: window.innerHeight,
   transparent: true,
-  antialias: false
+  antialias: true
 });
 document.body.appendChild(app.view);
 app.renderer.autoDensity = true;

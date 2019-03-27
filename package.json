@@ -17,6 +17,7 @@
     "gulp-size": "^3.0.0"
   },
   "dependencies": {
+    "@pixi/filter-pixelate": "^2.7.0",
     "bootstrap": "^3.3.7",
     "jquery": "^3.3.1",
     "ruby": "^0.6.1"

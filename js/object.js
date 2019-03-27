@@ -5,7 +5,8 @@ let power = 0;
 let app = new PIXI.Application({
   width: window.innerWidth,
   height: window.innerHeight,
-  transparent: true
+  transparent: true,
+  antialias: false
 });
 document.body.appendChild(app.view);
 app.renderer.autoDensity = true;
@@ -89,6 +90,9 @@ class Player {
     Back_4.anchor.set(0,1);
     Back_4.scale.set(3,3);
     app.stage.addChild(Back_4);
+
+    var Noisefilter = [new PIXI.filters.NoiseFilter(.1, .9)];
+    Back_0.filters = Noisefilter;
 
     // Back_0 = new PIXI.TilingSprite(backs[0], app.view.width, app.view.height);
     // Back_0.position.set(0, app.view.height/1.2);

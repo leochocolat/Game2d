@@ -1,5 +1,5 @@
 let path = "sprites/";
-let sprite, backgroundBack, backgroundFront;
+let sprite, backgroundBack, backgroundFront, Back_0, Back_1, Back_2, Back_3, Back_4;
 let power = 0;
 //Create a Pixi Application
 let app = new PIXI.Application({
@@ -20,10 +20,11 @@ class Player {
   build() {
     PIXI.Loader.shared
       .add(path + this.file)
-      .add(path + "background/backbuildings.json")
-      .add(path + "background/frontbuildings.json")
-      .add(path + "background/test-back.png")
-      .add(path + "background/test-front.png")
+      .add(path + "background/Back.json")
+      // .add(path + "background/backbuildings.json")
+      // .add(path + "background/frontbuildings.json")
+      // .add(path + "background/test-back.png")
+      // .add(path + "background/test-front.png")
       .on("progress", this.loadProgressHandler.bind(this))
       .load(this.setup.bind(this));
 
@@ -48,39 +49,86 @@ class Player {
     sprite.play();
 
   //BACKGROUNDS
-    // Back buildings
-    var backBgs = [];
-    for (var i = 1; i <= 13; i++) {
-      backBgs.push(PIXI.Texture.from("pixcity_Building" + i + '.png'));
+    // (with tileSprite)
+    var backs = [];
+    for (var i = 1; i <= 5; i++) {
+      backs.push(PIXI.Texture.from("Back_" + i + '.png'));
     }
 
-    backgroundBack = new PIXI.TilingSprite(
-      PIXI.Loader.shared.resources[path + "background/test-back.png"].texture,
-      app.view.width,
-      app.view.height
-    );
-    backgroundBack.position.set(0, app.view.height/1.2);
-    backgroundBack.tilePosition.set(0, app.view.height);
-    backgroundBack.anchor.set(0,1);
-    backgroundBack.scale.set(1.6,1.6);
-    app.stage.addChild(backgroundBack);
+    Back_0 = new PIXI.TilingSprite(backs[0], app.view.width, app.view.height);
+    Back_0.position.set(0, app.view.height/1.2);
+    Back_0.tilePosition.set(0, app.view.height);
+    Back_0.anchor.set(0,1);
+    Back_0.scale.set(3,3);
+    app.stage.addChild(Back_0);
+
+    Back_1 = new PIXI.TilingSprite(backs[1], app.view.width, app.view.height);
+    Back_1.position.set(0, app.view.height/1.2);
+    Back_1.tilePosition.set(0, app.view.height);
+    Back_1.anchor.set(0,1);
+    Back_1.scale.set(3,3);
+    app.stage.addChild(Back_1);
+
+    Back_2 = new PIXI.TilingSprite(backs[2], app.view.width, app.view.height);
+    Back_2.position.set(0, app.view.height/1.2);
+    Back_2.tilePosition.set(0, app.view.height);
+    Back_2.anchor.set(0,1);
+    Back_2.scale.set(3,3);
+    app.stage.addChild(Back_2);
+
+    Back_3 = new PIXI.TilingSprite(backs[3], app.view.width, app.view.height);
+    Back_3.position.set(0, app.view.height/1.2);
+    Back_3.tilePosition.set(0, app.view.height);
+    Back_3.anchor.set(0,1);
+    Back_3.scale.set(3,3);
+    app.stage.addChild(Back_3);
+
+    Back_4 = new PIXI.TilingSprite(backs[4], app.view.width, app.view.height);
+    Back_4.position.set(0, app.view.height/1.2);
+    Back_4.tilePosition.set(0, app.view.height);
+    Back_4.anchor.set(0,1);
+    Back_4.scale.set(3,3);
+    app.stage.addChild(Back_4);
+
+    // Back_0 = new PIXI.TilingSprite(backs[0], app.view.width, app.view.height);
+    // Back_0.position.set(0, app.view.height/1.2);
+    // Back_0.tilePosition.set(0, app.view.height);
+    // Back_0.anchor.set(0,1);
+    // Back_0.scale.set(3,3);
+    // app.stage.addChild(Back_0);
+    // Back buildings
+    // var backBgs = [];
+    // for (var i = 1; i <= 13; i++) {
+    //   backBgs.push(PIXI.Texture.from("pixcity_Building" + i + '.png'));
+    // }
+
+    // backgroundBack = new PIXI.TilingSprite(
+    //   PIXI.Loader.shared.resources[path + "background/test-back.png"].texture,
+    //   app.view.width,
+    //   app.view.height
+    // );
+    // backgroundBack.position.set(0, app.view.height/1.2);
+    // backgroundBack.tilePosition.set(0, app.view.height);
+    // backgroundBack.anchor.set(0,1);
+    // backgroundBack.scale.set(1.6,1.6);
+    // app.stage.addChild(backgroundBack);
 
     // Front buildings
-    var frontBgs = [];
-    for (var i = 1; i <= 5; i++) {
-      frontBgs.push(PIXI.Texture.from("pixcity_Immo" + i + '.png'));
-    }
+    // var frontBgs = [];
+    // for (var i = 1; i <= 5; i++) {
+    //   frontBgs.push(PIXI.Texture.from("pixcity_Immo" + i + '.png'));
+    // }
 
-    backgroundFront = new PIXI.TilingSprite(
-      PIXI.Loader.shared.resources[path + "background/test-front.png"].texture,
-      app.view.width,
-      app.view.height
-    );
-    backgroundFront.position.set(0, app.view.height/1.2);
-    backgroundFront.tilePosition.set(0, app.view.height);
-    backgroundFront.anchor.set(0,1);
-    backgroundFront.scale.set(1.6,1.6);
-    app.stage.addChild(backgroundFront);
+    // backgroundFront = new PIXI.TilingSprite(
+    //   PIXI.Loader.shared.resources[path + "background/test-front.png"].texture,
+    //   app.view.width,
+    //   app.view.height
+    // );
+    // backgroundFront.position.set(0, app.view.height/1.2);
+    // backgroundFront.tilePosition.set(0, app.view.height);
+    // backgroundFront.anchor.set(0,1);
+    // backgroundFront.scale.set(1.6,1.6);
+    // app.stage.addChild(backgroundFront);
 
 
     app.stage.addChild(sprite);
@@ -89,8 +137,12 @@ class Player {
   }
 
   gameLoop() {
-    backgroundBack.tilePosition.x -= 3;
-    backgroundFront.tilePosition.x -= 5;
+    Back_0.tilePosition.x -= 1.5;
+    Back_1.tilePosition.x -= 1.7;
+    Back_2.tilePosition.x -= 2;
+    Back_3.tilePosition.x -= 2.6;
+    Back_4.tilePosition.x -= 4;
+    // backgroundFront.tilePosition.x -= 5;
     requestAnimationFrame(this.gameLoop.bind(this));
   }
 }

@@ -1,5 +1,5 @@
 let path = "sprites/";
-let sprite, backgroundBack, backgroundFront, Back_0, Back_1, Back_2, Back_3, Back_4, enemy, btn;
+let sprite, backgroundBack, backgroundFront, Back_0, Back_1, Back_2, Back_3, Back_4, enemy, btn, message;
 let power = 0;
 //Create a Pixi Application
 let app = new PIXI.Application({
@@ -12,6 +12,7 @@ let app = new PIXI.Application({
 });
 let b = new Bump(app);
 let hitTest;
+let appearMsg = new TimelineMax();
 
 
 
@@ -96,8 +97,15 @@ class Player {
     Back_4.scale.set(3,3);
     app.stage.addChild(Back_4);
 
-    // var Noisefilter = [new PIXI.filters.NoiseFilter(.1, .9)];
-    // Back_0.filters = Noisefilter;
+    message = new PIXI.Text("You Lose!");
+    message.position.set(app.view.width/2, app.view.height/2);
+    message.anchor.set(.5, .5);
+    message.alpha = 0;
+    message.scale.set(1.5 ,1.5);
+    app.stage.addChild(message);
+
+    var NoiseFilter = [new PIXI.filters.NoiseFilter(0, .1)];
+    sprite.filters = NoiseFilter;
 
     //obstacle
     enemy = new PIXI.Graphics();
@@ -132,6 +140,17 @@ class Player {
     // TESTS
     if(bounds.x + bounds.width >= enemyBounds.x && bounds.x < enemyBounds.x + enemyBounds.width && bounds.y + bounds.height >= enemyBounds.y) {
       console.log("loose : " + "sprite.y = " + bounds.y + " enemy.y = " + enemyBounds.y );
+      this.loose();
+    }
+  }
+
+  loose() {
+    if(! appearMsg.isActive()) {
+      appearMsg.add(
+        TweenMax.to(message, .3, {alpha: 1, ease:Power1.easeInOut})
+      ).add(
+        TweenMax.to(message, .3, {alpha: 0, ease:Power1.easeInOut})
+      )
     }
   }
 }

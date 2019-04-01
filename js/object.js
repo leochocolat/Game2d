@@ -1,5 +1,5 @@
 let path = "sprites/";
-let sprite, backgroundBack, backgroundFront, Back_0, Back_1, Back_2, Back_3, Back_4, enemy;
+let sprite, backgroundBack, backgroundFront, Back_0, Back_1, Back_2, Back_3, Back_4, enemy, btn;
 let power = 0;
 //Create a Pixi Application
 let app = new PIXI.Application({
@@ -104,7 +104,6 @@ class Player {
     enemy.beginFill(0xFFFF00);
     enemy.lineStyle(5, 0xFF0000);
     enemy.drawRect(0, 0, 100, -150);
-    console.log(enemy);
     enemy.position.set(1500, app.view.height/1.2);
     app.stage.addChild(enemy);
     app.stage.addChild(sprite);
@@ -123,14 +122,12 @@ class Player {
     if(enemy.position.x + enemy.width < 0) {
       enemy.position.x = app.view.width;
     }
-    // backgroundFront.tilePosition.x -= 5;
     requestAnimationFrame(this.gameLoop.bind(this));
   }
 
   collision() {
     var bounds = sprite.getBounds();
     var enemyBounds = enemy.getBounds();
-    // console.log(bounds.y + " " +( enemyBounds.y - enemyBounds.height ));
     requestAnimationFrame(this.collision.bind(this));
     // TESTS
     if(bounds.x + bounds.width >= enemyBounds.x && bounds.x < enemyBounds.x + enemyBounds.width && bounds.y + bounds.height >= enemyBounds.y) {
@@ -188,30 +185,37 @@ function keyboard(value) {
   return key;
 }
 let keyObject = keyboard(" ");
+let preJump = new TimelineMax();
 keyObject.press = () => {
   sprite.stop();
-  power = 0;
+  power = 20;
   loadJump();
   function loadJump() {
-    power += 1;
+    if(power < 100) {
+      power += .5;
+    }
     requestAnimationFrame(loadJump);
   }
   console.log("Sprite animation : Flexion");
-  let preJump = new TimelineMax();
   preJump.add(
     TweenMax.to(sprite, .1, {rotation: -.1, ease: Power1.easeOut})
   );
 };
+
+let jump = new TimelineMax();
 keyObject.release = () => {
   console.log(power);
-  let jump = new TimelineMax();
-  jump.add(
-    TweenMax.to(sprite, .4, {y: 400, ease: Power1.easeOut})
-  ).add(
-    TweenMax.to(sprite, .4, {y: app.view.height/1.2, ease: Power1.easeIn})
-  ).add(
-    TweenMax.to(sprite, .05, {rotation: 0, ease: Power1.easeIn})
-  )
+  if(! jump.isActive()) {
+    jump.add(
+      TweenMax.to(sprite, .4, {y: "-=" + 260, ease: Power1.easeOut})
+      // TweenMax.to(sprite, .4, {y: "-=" + 400 * power/100, ease: Power1.easeOut})
+    ).add(
+      TweenMax.to(sprite, .4, {y: app.view.height/1.2, ease: Power1.easeIn})
+    ).add(
+      TweenMax.to(sprite, .05, {rotation: 0, ease: Power1.easeIn})
+    )
+  }
+
   setTimeout(function() {
     sprite.play();
   }, 800);

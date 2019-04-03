@@ -10,6 +10,7 @@ let app = new PIXI.Application({
   transparent: true,
   antialias: true,
 });
+PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 let hitTest;
 let appearMsg = new TimelineMax();
 

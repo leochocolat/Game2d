@@ -10,11 +10,8 @@ let app = new PIXI.Application({
   transparent: true,
   antialias: true,
 });
-let b = new Bump(app);
 let hitTest;
 let appearMsg = new TimelineMax();
-
-
 
 document.body.appendChild(app.view);
 app.renderer.autoDensity = true;
@@ -30,6 +27,7 @@ class Player {
     PIXI.Loader.shared
       .add(path + this.file)
       .add(path + "background/Back.json")
+      .add(path + "background/obs.json")
       .on("progress", this.loadProgressHandler.bind(this))
       .load(this.setup.bind(this));
 
@@ -59,7 +57,6 @@ class Player {
     var tils = [];
     for (var i = 1; i <= 5; i++) {
       backs.push(PIXI.Texture.from("Back_" + i + '.png'));
-      // tils.push(new PIXI.TilingSprite(backs[i], app.view.width, app.view.height);
     }
 
     Back_0 = new PIXI.TilingSprite(backs[0], app.view.width, app.view.height);
@@ -104,16 +101,22 @@ class Player {
     message.scale.set(1.5 ,1.5);
     app.stage.addChild(message);
 
-    var NoiseFilter = [new PIXI.filters.NoiseFilter(0, .1)];
-    sprite.filters = NoiseFilter;
+    // var NoiseFilter = [new PIXI.filters.NoiseFilter(0, .1)];
+    // sprite.filters = NoiseFilter;
 
     //obstacle
-    enemy = new PIXI.Graphics();
-    enemy.beginFill(0xFFFF00);
-    enemy.lineStyle(5, 0xFF0000);
-    enemy.drawRect(0, 0, 100, -150);
+    var obs = [];
+    for (var i = 1; i <= 2; i++) {
+      obs.push(PIXI.Texture.from("obs_" + i + '.png'));
+    }
+
+    enemy = new PIXI.AnimatedSprite(obs);
+    enemy.scale.set(4, 4);
+    enemy.anchor.set(0,1);
     enemy.position.set(1500, app.view.height/1.2);
+    enemy.gotoAndStop(parseInt(Math.random()*2));
     app.stage.addChild(enemy);
+
     app.stage.addChild(sprite);
     // update function
     this.gameLoop();
@@ -128,7 +131,8 @@ class Player {
     Back_4.tilePosition.x -= 4;
     enemy.position.x -= 17;
     if(enemy.position.x + enemy.width < 0) {
-      enemy.position.x = app.view.width;
+      enemy.position.x = app.view.width + (Math.random() * app.view.width);
+      enemy.gotoAndStop(parseInt(Math.random()*2));
     }
     requestAnimationFrame(this.gameLoop.bind(this));
   }
@@ -139,7 +143,6 @@ class Player {
     requestAnimationFrame(this.collision.bind(this));
     // TESTS
     if(bounds.x + bounds.width >= enemyBounds.x && bounds.x < enemyBounds.x + enemyBounds.width && bounds.y + bounds.height >= enemyBounds.y) {
-      console.log("loose : " + "sprite.y = " + bounds.y + " enemy.y = " + enemyBounds.y );
       this.loose();
     }
   }
@@ -160,82 +163,3 @@ let player1 = new Player("BMX", "player/bmx.json");
 // let player = new Player("Skate", "player/Skate.png");
 // player.build();
 player1.build();
-
-//Jump on keypressed
-function keyboard(value) {
-  let key = {};
-  key.value = value;
-  key.isDown = false;
-  key.isUp = true;
-  key.press = undefined;
-  key.release = undefined;
-  //The `downHandler`
-  key.downHandler = event => {
-    if (event.key === key.value) {
-      if (key.isUp && key.press) key.press();
-      key.isDown = true;
-      key.isUp = false;
-      event.preventDefault();
-    }
-  };
-  //The `upHandler`
-  key.upHandler = event => {
-    if (event.key === key.value) {
-      if (key.isDown && key.release) key.release();
-      key.isDown = false;
-      key.isUp = true;
-      event.preventDefault();
-    }
-  };
-  //Attach event listeners
-  const downListener = key.downHandler.bind(key);
-  const upListener = key.upHandler.bind(key);
-  window.addEventListener(
-    "keydown", downListener, false
-  );
-  window.addEventListener(
-    "keyup", upListener, false
-  );
-  // Detach event listeners
-  key.unsubscribe = () => {
-    window.removeEventListener("keydown", downListener);
-    window.removeEventListener("keyup", upListener);
-  };
-  return key;
-}
-let keyObject = keyboard(" ");
-let preJump = new TimelineMax();
-keyObject.press = () => {
-  sprite.stop();
-  power = 20;
-  loadJump();
-  function loadJump() {
-    if(power < 100) {
-      power += .5;
-    }
-    requestAnimationFrame(loadJump);
-  }
-  console.log("Sprite animation : Flexion");
-  preJump.add(
-    TweenMax.to(sprite, .1, {rotation: -.1, ease: Power1.easeOut})
-  );
-};
-
-let jump = new TimelineMax();
-keyObject.release = () => {
-  console.log(power);
-  if(! jump.isActive()) {
-    jump.add(
-      TweenMax.to(sprite, .4, {y: "-=" + 260, ease: Power1.easeOut})
-      // TweenMax.to(sprite, .4, {y: "-=" + 400 * power/100, ease: Power1.easeOut})
-    ).add(
-      TweenMax.to(sprite, .4, {y: app.view.height/1.2, ease: Power1.easeIn})
-    ).add(
-      TweenMax.to(sprite, .05, {rotation: 0, ease: Power1.easeIn})
-    )
-  }
-
-  setTimeout(function() {
-    sprite.play();
-  }, 800);
-};

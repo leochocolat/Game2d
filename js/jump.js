@@ -65,7 +65,7 @@ keyObject.release = () => {
     jump.add(
       TweenMax.to(sprite, .4, {y: "-=" + 260, ease: Power1.easeOut})
     ).add(
-      TweenMax.to(sprite, .4, {y: app.view.height/1.2, ease: Power1.easeIn})
+      TweenMax.to(sprite, .4, {y: app.view.height/1.15, ease: Power1.easeIn})
     ).add(
       TweenMax.to(sprite, .05, {rotation: 0, ease: Power1.easeIn})
     )

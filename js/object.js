@@ -1,5 +1,5 @@
 let path = "sprites/";
-let sprite, backgroundBack, backgroundFront, Back_0, Back_1, Back_2, Back_3, Back_4, enemy, btn, message;
+let sprite, backgroundBack, backgroundFront, Back_0, Back_1, Back_2, Back_3, Back_4, enemy, btn, message, ground;
 let power = 0;
 //Create a Pixi Application
 let app = new PIXI.Application({
@@ -28,6 +28,7 @@ class Player {
       .add(path + this.file)
       .add(path + "background/Back.json")
       .add(path + "background/obs.json")
+      .add(path + "background/road_1.png")
       .on("progress", this.loadProgressHandler.bind(this))
       .load(this.setup.bind(this));
 
@@ -46,7 +47,7 @@ class Player {
     }
     sprite = new PIXI.AnimatedSprite(frames);
     sprite.animationSpeed = .10;
-    sprite.position.set(100, app.view.height/1.2);
+    sprite.position.set(100, app.view.height/1.15);
     sprite.anchor.set(0, 1);
     sprite.scale.set(3,3);
     sprite.play();
@@ -94,6 +95,15 @@ class Player {
     Back_4.scale.set(3,3);
     app.stage.addChild(Back_4);
 
+    let groundTexture = PIXI.Texture.from(path + "background/road_1.png")
+    ground = new PIXI.TilingSprite(groundTexture, app.view.width, app.view.height - app.view.height/1.2);
+    ground.width = app.view.width;
+    ground.height = app.view.height - app.view.height/1.2;
+    ground.scale.set(5,5)
+    console.log(ground);
+    ground.position.set(0, app.view.height/1.2);
+    app.stage.addChild(ground);
+
     message = new PIXI.Text("You Lose!");
     message.position.set(app.view.width/2, app.view.height/2);
     message.anchor.set(.5, .5);
@@ -113,7 +123,7 @@ class Player {
     enemy = new PIXI.AnimatedSprite(obs);
     enemy.scale.set(4, 4);
     enemy.anchor.set(0,1);
-    enemy.position.set(1500, app.view.height/1.2);
+    enemy.position.set(1500, app.view.height/1.15);
     enemy.gotoAndStop(parseInt(Math.random()*2));
     app.stage.addChild(enemy);
 
@@ -124,12 +134,13 @@ class Player {
   }
 
   gameLoop() {
-    Back_0.tilePosition.x -= 1.5;
-    Back_1.tilePosition.x -= 1.7;
-    Back_2.tilePosition.x -= 2;
-    Back_3.tilePosition.x -= 2.6;
-    Back_4.tilePosition.x -= 4;
+    Back_0.tilePosition.x -= 1;
+    Back_1.tilePosition.x -= 1.1;
+    Back_2.tilePosition.x -= 1.3;
+    Back_3.tilePosition.x -= 1.8;
+    Back_4.tilePosition.x -= 2.5;
     enemy.position.x -= 17;
+    ground.tilePosition.x -= 3.4;
     if(enemy.position.x + enemy.width < 0) {
       enemy.position.x = app.view.width + (Math.random() * app.view.width);
       enemy.gotoAndStop(parseInt(Math.random()*2));

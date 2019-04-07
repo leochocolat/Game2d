@@ -1,7 +1,6 @@
 let sprite, enemy, backgroundBack, backgroundFront, Back_0, Back_1, Back_2, Back_3, Back_4, ground, btn, message;
 let path = "sprites/";
 let power = 0;
-let perf;
 
 //CREATE PIXI APP
 let app = new PIXI.Application({
@@ -134,20 +133,14 @@ class Player {
   }
 
   gameLoop() {
-
-    if(fps <= 60) {
-      perf = fps / 60;
-    } else {
-      perf = 1
-    }
-    
-    Back_0.tilePosition.x -= 1 * perf;
-    Back_1.tilePosition.x -= 1.1 * perf;
-    Back_2.tilePosition.x -= 1.3 * perf;
-    Back_3.tilePosition.x -= 1.8 * perf;
-    Back_4.tilePosition.x -= 2.5 * perf;
-    enemy.position.x -= 17 * perf;
-    ground.tilePosition.x -= 3.4 * perf;
+    console.dir(performance.now());
+    Back_0.tilePosition.x -= 1;
+    Back_1.tilePosition.x -= 1.1;
+    Back_2.tilePosition.x -= 1.3;
+    Back_3.tilePosition.x -= 1.8;
+    Back_4.tilePosition.x -= 2.5;
+    enemy.position.x -= 17;
+    ground.tilePosition.x -= 3.4;
 
     //TEST POSITION
     if(enemy.position.x + enemy.width < 0) {
